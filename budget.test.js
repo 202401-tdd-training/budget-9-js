@@ -26,10 +26,9 @@ describe('BudgetService', function () {
     it('Full same month, start date is 0101, end date is 0131', () => {
         const service = new BudgetService();
         service.getAll = () => {
-            return [{
-                yearMonth: '202401',
-                amount: 310
-            }];
+            return [
+                createBudget('202401', 310),
+            ];
         };
         expect(service.query(new Date(2024, 0, 1), new Date(2024, 0, 31))).toBe(310);
     });
@@ -37,10 +36,9 @@ describe('BudgetService', function () {
     it('Partial same month, start date is 0101, end date is 0115', () => {
         const service = new BudgetService();
         service.getAll = () => {
-            return [{
-                yearMonth: '202401',
-                amount: 310
-            }];
+            return [
+                createBudget('202401', 310),
+            ];
         };
         expect(service.query(new Date(2024, 0, 1), new Date(2024, 0, 15))).toBe(150);
     });

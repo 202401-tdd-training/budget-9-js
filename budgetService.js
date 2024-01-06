@@ -27,7 +27,8 @@ export class BudgetService {
             if (!targetBudget) return 0;
             const daysDiff = Math.abs(startMoment.diff(endMoment, 'days')) + 1;
             const daysAmount = startMoment.daysInMonth();
-            return targetBudget.amount * daysDiff / daysAmount;
+            return targetBudget.dailyAmount() * daysDiff;
+            // return targetBudget.amount * daysDiff / daysAmount;
         }
 
         const targetBudget = budgets.filter(item => {
@@ -53,7 +54,6 @@ export class BudgetService {
         }, 0);
 
     }
-
 
     /**
      *
