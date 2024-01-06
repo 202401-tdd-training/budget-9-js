@@ -34,14 +34,14 @@ export class BudgetService {
         });
 
         return targetBudgets.reduce((sum, budget) => {
-            let overlappingDays = this.overlappingDays(startMoment, budget, endMoment);
+            let overlappingDays = this.overlappingDays(budget, startMoment, endMoment);
             return sum + (budget.dailyAmount() * overlappingDays);
 
         }, 0);
 
     }
 
-    overlappingDays(startMoment, budget, endMoment) {
+    overlappingDays(budget, startMoment, endMoment) {
         let overlappingEnd;
         let overlappingStart;
         if (startMoment.format('yyyyMM') === budget.yearMonth) {
