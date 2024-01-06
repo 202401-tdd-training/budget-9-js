@@ -1,4 +1,5 @@
 import moment from "moment/moment";
+import {Budget} from "./budget";
 
 export class BudgetService {
 
@@ -16,7 +17,8 @@ export class BudgetService {
                 return moment(item.yearMonth).isSame(start, 'month');
             });
             if (!targetBudget) return 0;
-            const daysInMonth = startMoment.daysInMonth();
+            const daysInMonth = targetBudget.totalDays();
+            // const daysInMonth = startMoment.daysInMonth();
             return targetBudget.amount / daysInMonth;
         }
 
@@ -54,6 +56,11 @@ export class BudgetService {
 
     }
 
+    /**
+     *
+     * @returns {Budget[]}
+     */
     getAll() {
+        return [new Budget('202401', 310)];
     }
 }
