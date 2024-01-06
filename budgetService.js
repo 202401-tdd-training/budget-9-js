@@ -40,13 +40,17 @@ export class BudgetService {
             }
 
             if (i === targetBudgets.length - 1) {
-                const daysDiff = endMoment.diff(moment(budget.yearMonth).startOf('month'), 'days') + 1;
+                const daysDiff = endMoment.diff(this.firstDay(budget), 'days') + 1;
                 return sum + (budget.dailyAmount() * daysDiff);
             }
 
             return sum + budget.amount;
         }, 0);
 
+    }
+
+    firstDay(budget) {
+        return moment(budget.yearMonth).startOf('month');
     }
 
     lastDay(budget) {
