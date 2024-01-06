@@ -34,18 +34,15 @@ export class BudgetService {
         });
 
         return targetBudgets.reduce((sum, budget, i) => {
-            let daysDiff;
+            let overlappingDays;
             if (i === 0) {
-                daysDiff = budget.lastDay().diff(startMoment, 'days') + 1;
-                // return sum + (budget.dailyAmount() * daysDiff);
+                overlappingDays = budget.lastDay().diff(startMoment, 'days') + 1;
             } else if (i === targetBudgets.length - 1) {
-                daysDiff = endMoment.diff(budget.firstDay(), 'days') + 1;
-                // return sum + (budget.dailyAmount() * daysDiff);
+                overlappingDays = endMoment.diff(budget.firstDay(), 'days') + 1;
             } else {
-                daysDiff = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
-                // return sum + (budget.dailyAmount() * daysDiff);
+                overlappingDays = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
             }
-            return sum + (budget.dailyAmount() * daysDiff);
+            return sum + (budget.dailyAmount() * overlappingDays);
 
         }, 0);
 
