@@ -33,15 +33,13 @@ export class BudgetService {
             return moment(item.yearMonth).isSameOrAfter(start, 'month') && moment(item.yearMonth).isSameOrBefore(endMoment, 'month');
         });
 
-        return targetBudgets.reduce((sum, budget, i) => {
+        return targetBudgets.reduce((sum, budget) => {
             let overlappingEnd;
             let overlappingStart;
             if (startMoment.format('yyyyMM') === budget.yearMonth) {
-                // if (i === 0) {
                 overlappingEnd = budget.lastDay();
                 overlappingStart = startMoment;
             } else if (endMoment.format('yyyyMM') === budget.yearMonth) {
-                // } else if (i === targetBudgets.length - 1) {
                 overlappingStart = budget.firstDay();
                 overlappingEnd = endMoment;
             } else {
