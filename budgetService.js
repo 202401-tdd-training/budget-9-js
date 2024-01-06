@@ -38,7 +38,8 @@ export class BudgetService {
                 const daysAmount = moment(budget.yearMonth).daysInMonth();
                 const daysDiff = Math.abs(startMoment.diff(moment(budget.yearMonth).endOf('month'), 'days')) + 1;
 
-                return sum + (budget.amount * daysDiff / daysAmount);
+                // return sum + (budget.amount * daysDiff / daysAmount);
+                return sum + (budget.dailyAmount() * daysDiff);
             }
 
             if (i === targetBudget.length - 1) {
