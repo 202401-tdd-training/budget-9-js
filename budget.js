@@ -9,6 +9,14 @@ export class Budget {
         this.amount = amount;
     }
 
+    /**
+     *
+     * @returns {moment.Moment}
+     */
+    lastDay() {
+        return moment(this.yearMonth).endOf('month');
+    }
+
     dailyAmount() {
         return this.amount / this.totalDays();
     }
