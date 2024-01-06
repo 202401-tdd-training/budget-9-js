@@ -35,7 +35,7 @@ export class BudgetService {
 
         return targetBudgets.reduce((sum, budget, i) => {
             if (i === 0) {
-                const daysDiff = Math.abs(budget.lastDay().diff(startMoment, 'days')) + 1;
+                const daysDiff = budget.lastDay().diff(startMoment, 'days') + 1;
                 return sum + (budget.dailyAmount() * daysDiff);
             }
 
