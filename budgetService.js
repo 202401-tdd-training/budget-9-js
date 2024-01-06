@@ -34,23 +34,28 @@ export class BudgetService {
         });
 
         return targetBudgets.reduce((sum, budget) => {
-            let overlappingEnd;
-            let overlappingStart;
-            if (startMoment.format('yyyyMM') === budget.yearMonth) {
-                overlappingEnd = budget.lastDay();
-                overlappingStart = startMoment;
-            } else if (endMoment.format('yyyyMM') === budget.yearMonth) {
-                overlappingStart = budget.firstDay();
-                overlappingEnd = endMoment;
-            } else {
-                overlappingEnd = budget.lastDay();
-                overlappingStart = budget.firstDay();
-            }
-            let overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
+            let overlappingDays = this.overlappingDays(startMoment, budget, endMoment);
             return sum + (budget.dailyAmount() * overlappingDays);
 
         }, 0);
 
+    }
+
+    overlappingDays(startMoment, budget, endMoment) {
+        let overlappingEnd;
+        let overlappingStart;
+        if (startMoment.format('yyyyMM') === budget.yearMonth) {
+            overlappingEnd = budget.lastDay();
+            overlappingStart = startMoment;
+        } else if (endMoment.format('yyyyMM') === budget.yearMonth) {
+            overlappingStart = budget.firstDay();
+            overlappingEnd = endMoment;
+        } else {
+            overlappingEnd = budget.lastDay();
+            overlappingStart = budget.firstDay();
+        }
+        let overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
+        return overlappingDays;
     }
 
     /**
