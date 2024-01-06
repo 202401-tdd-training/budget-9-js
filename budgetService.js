@@ -34,14 +34,12 @@ export class BudgetService {
             return moment(item.yearMonth).isSameOrAfter(start, 'month') && moment(item.yearMonth).isSameOrBefore(endMoment, 'month');
         });
 
+        const period = new Period(startMoment, endMoment);
         return targetBudgets.reduce((sum, budget) => {
-            const period = new Period(startMoment, endMoment);
-            return sum + budget.overlappingAmount( period);
-
+            return sum + budget.overlappingAmount(period);
         }, 0);
 
     }
-
 
     /**
      *
