@@ -9,6 +9,10 @@ export class Budget {
         this.amount = amount;
     }
 
+    dailyAmount() {
+        return this.amount / this.totalDays();
+    }
+
     totalDays() {
         return moment(this.yearMonth).daysInMonth();
     }

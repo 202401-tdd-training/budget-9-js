@@ -17,7 +17,7 @@ export class BudgetService {
                 return moment(item.yearMonth).isSame(start, 'month');
             });
             if (!targetBudget) return 0;
-            return this.dailyAmount(targetBudget);
+            return targetBudget.dailyAmount();
         }
 
         if (startMoment.isSame(endMoment, 'month')) {
@@ -54,9 +54,6 @@ export class BudgetService {
 
     }
 
-    dailyAmount(targetBudget) {
-        return targetBudget.amount / targetBudget.totalDays();
-    }
 
     /**
      *
