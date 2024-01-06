@@ -13,6 +13,13 @@ export class Budget {
      *
      * @returns {moment.Moment}
      */
+    firstDay() {
+        return moment(this.yearMonth).startOf('month');
+    }
+    /**
+     *
+     * @returns {moment.Moment}
+     */
     lastDay() {
         return moment(this.yearMonth).endOf('month');
     }
