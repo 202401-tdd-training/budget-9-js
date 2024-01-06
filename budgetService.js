@@ -10,7 +10,8 @@ export class BudgetService {
         }
 
         let startMoment = moment(start);
-        if (startMoment.isSame(end)) {
+        let endMoment = moment(end);
+        if (startMoment.isSame(endMoment)) {
             const targetBudget = budgets.find(item => {
                 return moment(item.yearMonth).isSame(start, 'month');
             });
@@ -19,18 +20,18 @@ export class BudgetService {
             return targetBudget.amount / daysAmount;
         }
 
-        if (startMoment.isSame(end, 'month')) {
+        if (startMoment.isSame(endMoment, 'month')) {
             const targetBudget = budgets.find(item => {
                 return moment(item.yearMonth).isSame(start, 'month');
             });
             if (!targetBudget) return 0;
-            const daysDiff = Math.abs(startMoment.diff(end, 'days')) + 1;
+            const daysDiff = Math.abs(startMoment.diff(endMoment, 'days')) + 1;
             const daysAmount = startMoment.daysInMonth();
             return targetBudget.amount * daysDiff / daysAmount;
         }
 
         const targetBudget = budgets.filter(item => {
-            return moment(item.yearMonth).isSameOrAfter(start, 'month') && moment(item.yearMonth).isSameOrBefore(end, 'month');
+            return moment(item.yearMonth).isSameOrAfter(start, 'month') && moment(item.yearMonth).isSameOrBefore(endMoment, 'month');
         });
 
         return targetBudget.reduce((sum, budget, i) => {
@@ -43,7 +44,7 @@ export class BudgetService {
 
             if (i === targetBudget.length - 1) {
                 const daysAmount = moment(budget.yearMonth).daysInMonth();
-                const daysDiff = Math.abs(moment(end).diff(moment(budget.yearMonth).startOf('month'), 'days')) + 1;
+                const daysDiff = Math.abs(endMoment.diff(moment(budget.yearMonth).startOf('month'), 'days')) + 1;
 
                 return sum + (budget.amount * daysDiff / daysAmount);
             }
