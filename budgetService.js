@@ -40,7 +40,7 @@ export class BudgetService {
             }
 
             if (i === targetBudgets.length - 1) {
-                const daysDiff = Math.abs(endMoment.diff(moment(budget.yearMonth).startOf('month'), 'days')) + 1;
+                const daysDiff = endMoment.diff(moment(budget.yearMonth).startOf('month'), 'days') + 1;
                 return sum + (budget.dailyAmount() * daysDiff);
             }
 
