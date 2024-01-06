@@ -36,10 +36,14 @@ export class BudgetService {
 
         return targetBudgets.reduce((sum, budget) => {
             const period = new Period(startMoment, endMoment);
-            return sum + (budget.dailyAmount() * period.overlappingDays(budget.createPeriod()));
+            return sum + this.overlappingAmount(budget, period);
 
         }, 0);
 
+    }
+
+    overlappingAmount(budget, period) {
+        return budget.dailyAmount() * period.overlappingDays(budget.createPeriod());
     }
 
     /**
