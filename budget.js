@@ -1,4 +1,5 @@
 import moment from "moment";
+import {Period} from "./period";
 
 export class Budget {
     yearMonth;
@@ -9,6 +10,9 @@ export class Budget {
         this.amount = amount;
     }
 
+    createPeriod() {
+        return new Period(this.firstDay(), this.lastDay());
+    }
     /**
      *
      * @returns {moment.Moment}
