@@ -46,15 +46,15 @@ export class BudgetService {
         });
 
         return targetBudgets.reduce((sum, budget) => {
-            let overlappingDays = this.overlappingDays(budget, startMoment, endMoment);
+            const period = new Period(startMoment, endMoment);
+            let overlappingDays = this.overlappingDays(budget, startMoment, endMoment, period);
             return sum + (budget.dailyAmount() * overlappingDays);
 
         }, 0);
 
     }
 
-    overlappingDays(budget, startMoment, endMoment) {
-        const period = new Period(startMoment, endMoment);
+    overlappingDays(budget, startMoment, endMoment, period) {
         let overlappingEnd;
         let overlappingStart;
         if (period.startMoment.format('yyyyMM') === budget.yearMonth) {
