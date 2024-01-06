@@ -74,15 +74,10 @@ describe('BudgetService', function () {
     it('No db data, start date is 0201, end date is 0301', () => {
         const service = new BudgetService();
         service.getAll = () => {
-            return [createBudget('202401', 310),
-                {
-                    yearMonth: '202404',
-                    amount: 300
-                },
-                {
-                    yearMonth: '202405',
-                    amount: 310
-                }
+            return [
+                createBudget('202401', 310),
+                createBudget('202404', 300),
+                createBudget('202405', 310),
             ];
         };
         expect(service.query(new Date(2024, 1, 1), new Date(2024, 2, 1))).toBe(0);
@@ -91,15 +86,10 @@ describe('BudgetService', function () {
     it('No db data in same month, start date is 0201, end date is 0201', () => {
         const service = new BudgetService();
         service.getAll = () => {
-            return [createBudget('202401', 310),
-                {
-                    yearMonth: '202404',
-                    amount: 300
-                },
-                {
-                    yearMonth: '202405',
-                    amount: 310
-                }
+            return [
+                createBudget('202401', 310),
+                createBudget('202404', 300),
+                createBudget('202405', 310),
             ];
         };
         expect(service.query(new Date(2024, 1, 1), new Date(2024, 1, 1))).toBe(0);
@@ -107,15 +97,10 @@ describe('BudgetService', function () {
     it('No db data in same month, start date is 0201, end date is 0201', () => {
         const service = new BudgetService();
         service.getAll = () => {
-            return [createBudget('202401', 310),
-                {
-                    yearMonth: '202404',
-                    amount: 300
-                },
-                {
-                    yearMonth: '202405',
-                    amount: 310
-                }
+            return [
+                createBudget('202401', 310),
+                createBudget('202404', 300),
+                createBudget('202405', 310),
             ];
         };
         expect(service.query(new Date(2024, 1, 1), new Date(2024, 1, 15))).toBe(0);
