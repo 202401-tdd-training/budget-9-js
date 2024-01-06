@@ -1,17 +1,6 @@
 import moment from "moment/moment";
 import {Budget} from "./budget";
-
-class Period {
-    startMoment;
-    endMoment;
-
-    constructor(startMoment, endMoment) {
-        this.startMoment = startMoment;
-        this.endMoment = endMoment;
-
-    }
-
-}
+import {Period} from "./period";
 
 export class BudgetService {
 
@@ -47,28 +36,11 @@ export class BudgetService {
 
         return targetBudgets.reduce((sum, budget) => {
             const period = new Period(startMoment, endMoment);
-            let overlappingDays = this.overlappingDays(budget, period);
+            let overlappingDays = period.overlappingDays(budget);
             return sum + (budget.dailyAmount() * overlappingDays);
 
         }, 0);
 
-    }
-
-    overlappingDays(budget, period) {
-        let overlappingEnd;
-        let overlappingStart;
-        if (period.startMoment.format('yyyyMM') === budget.yearMonth) {
-            overlappingEnd = budget.lastDay();
-            overlappingStart = period.startMoment;
-        } else if (period.endMoment.format('yyyyMM') === budget.yearMonth) {
-            overlappingStart = budget.firstDay();
-            overlappingEnd = period.endMoment;
-        } else {
-            overlappingEnd = budget.lastDay();
-            overlappingStart = budget.firstDay();
-        }
-        let overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
-        return overlappingDays;
     }
 
     /**
