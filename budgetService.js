@@ -34,17 +34,18 @@ export class BudgetService {
         });
 
         return targetBudgets.reduce((sum, budget, i) => {
+            let daysDiff;
             if (i === 0) {
-                const daysDiff = budget.lastDay().diff(startMoment, 'days') + 1;
-                return sum + (budget.dailyAmount() * daysDiff);
+                daysDiff = budget.lastDay().diff(startMoment, 'days') + 1;
+                // return sum + (budget.dailyAmount() * daysDiff);
             } else if (i === targetBudgets.length - 1) {
-                const daysDiff = endMoment.diff(budget.firstDay(), 'days') + 1;
-                return sum + (budget.dailyAmount() * daysDiff);
+                daysDiff = endMoment.diff(budget.firstDay(), 'days') + 1;
+                // return sum + (budget.dailyAmount() * daysDiff);
             } else {
-                const daysDiff = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
-                return sum + (budget.dailyAmount() * daysDiff);
-                // return sum + budget.amount;
+                daysDiff = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
+                // return sum + (budget.dailyAmount() * daysDiff);
             }
+            return sum + (budget.dailyAmount() * daysDiff);
 
         }, 0);
 
