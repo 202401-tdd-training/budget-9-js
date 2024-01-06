@@ -53,8 +53,10 @@ export class BudgetService {
 
     }
 
-    overlappingDays(budget, startMoment, endMoment) {
-        const period = new Period(startMoment, endMoment);
+    overlappingDays(budget, s, e) {
+        const period = new Period(s, e);
+        const startMoment = period.startMoment;
+        const endMoment = period.endMoment;
         let overlappingEnd;
         let overlappingStart;
         if (startMoment.format('yyyyMM') === budget.yearMonth) {
