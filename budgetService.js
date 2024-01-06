@@ -36,11 +36,17 @@ export class BudgetService {
         return targetBudgets.reduce((sum, budget, i) => {
             let overlappingDays;
             if (i === 0) {
-                overlappingDays = budget.lastDay().diff(startMoment, 'days') + 1;
+                let overlappingEnd = budget.lastDay();
+                let overlappingStart = startMoment;
+                overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
             } else if (i === targetBudgets.length - 1) {
-                overlappingDays = endMoment.diff(budget.firstDay(), 'days') + 1;
+                let overlappingStart = budget.firstDay();
+                let overlappingEnd = endMoment;
+                overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
             } else {
-                overlappingDays = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
+                let overlappingEnd = budget.lastDay();
+                let overlappingStart = budget.firstDay();
+                overlappingDays = overlappingEnd.diff(overlappingStart, 'days') + 1;
             }
             return sum + (budget.dailyAmount() * overlappingDays);
 
