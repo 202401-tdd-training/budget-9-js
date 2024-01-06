@@ -35,18 +35,15 @@ export class BudgetService {
 
         return targetBudget.reduce((sum, budget, i) => {
             if (i === 0) {
-                const daysAmount = moment(budget.yearMonth).daysInMonth();
                 const daysDiff = Math.abs(startMoment.diff(moment(budget.yearMonth).endOf('month'), 'days')) + 1;
-
-                // return sum + (budget.amount * daysDiff / daysAmount);
                 return sum + (budget.dailyAmount() * daysDiff);
             }
 
             if (i === targetBudget.length - 1) {
-                const daysAmount = moment(budget.yearMonth).daysInMonth();
+                // const daysAmount = moment(budget.yearMonth).daysInMonth();
                 const daysDiff = Math.abs(endMoment.diff(moment(budget.yearMonth).startOf('month'), 'days')) + 1;
-
-                return sum + (budget.amount * daysDiff / daysAmount);
+                return sum + (budget.dailyAmount() * daysDiff);
+                // return sum + (budget.amount * daysDiff / daysAmount);
             }
 
             return sum + budget.amount;
