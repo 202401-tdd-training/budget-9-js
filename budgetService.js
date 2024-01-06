@@ -1,6 +1,18 @@
 import moment from "moment/moment";
 import {Budget} from "./budget";
 
+class Period {
+    startMoment;
+    endMoment;
+
+    constructor(startMoment, endMoment) {
+        this.startMoment = startMoment;
+        this.endMoment = endMoment;
+
+    }
+
+}
+
 export class BudgetService {
 
     query(start, end) {
@@ -42,6 +54,7 @@ export class BudgetService {
     }
 
     overlappingDays(budget, startMoment, endMoment) {
+        const period = new Period(startMoment, endMoment);
         let overlappingEnd;
         let overlappingStart;
         if (startMoment.format('yyyyMM') === budget.yearMonth) {
