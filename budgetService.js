@@ -37,14 +37,15 @@ export class BudgetService {
             if (i === 0) {
                 const daysDiff = budget.lastDay().diff(startMoment, 'days') + 1;
                 return sum + (budget.dailyAmount() * daysDiff);
-            }
-
-            if (i === targetBudgets.length - 1) {
+            } else if (i === targetBudgets.length - 1) {
                 const daysDiff = endMoment.diff(budget.firstDay(), 'days') + 1;
                 return sum + (budget.dailyAmount() * daysDiff);
+            } else {
+                const daysDiff = budget.lastDay().diff(budget.firstDay(), 'days') + 1;
+                return sum + (budget.dailyAmount() * daysDiff);
+                // return sum + budget.amount;
             }
 
-            return sum + budget.amount;
         }, 0);
 
     }
