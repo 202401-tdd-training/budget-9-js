@@ -17,9 +17,7 @@ export class BudgetService {
                 return moment(item.yearMonth).isSame(start, 'month');
             });
             if (!targetBudget) return 0;
-            const daysInMonth = targetBudget.totalDays();
-            // const daysInMonth = startMoment.daysInMonth();
-            return targetBudget.amount / daysInMonth;
+            return targetBudget.amount / targetBudget.totalDays();
         }
 
         if (startMoment.isSame(endMoment, 'month')) {
